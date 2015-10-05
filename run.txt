@@ -1,0 +1,22 @@
+Running the Email Analytics is a two step process:
+1. Index creation/update step
+2. Index range search step
+
+#Index Creation/update step
+    1. create these env variables
+     INDEX_PATH=<Path where you want to create Lucene Index>
+     INPUT_CSV_FILE=<Path to emails to be indexed/updated>
+    2. run the application as follows:
+      java -cp Index_creation.jar lucene.indexer.IndexerMain -index INDEX_PATH -input_file INPUT_CSV_FILE
+      
+#Index range search step
+    1. create these env variables
+      num=<is the number of top phrases which you want to see within the specified date range, by default it is 10>
+      INDEX_PATH=<is the directory location is your Lucene Index location. Note, it should be the same as the one you had specified while running the IndexCreation.jar application>
+      Output_CSV_FILE=<is the Output CSV file which consists of the top n phrases and the associated count monthwise.>
+      minnum=<min count of the phrase in that particular month. Default is 5>
+      RANGE_START=<is the starting date range. Note that the date format should be yyyymmdd, ie without any delimeters>
+      RANGE_STOP=<is the end date range. Format should be the same as above.>
+    2. run the application step
+      java -cp Feedback_term_report.jar lucene.indexer.JavaSearcher -index INDEX_PATH -num_phrases num -minTermCount minnum -grouping month -startDate RANGE_START -endDate RANGE_STOP -output_file OUTPUT_CSV_FILE
+      
