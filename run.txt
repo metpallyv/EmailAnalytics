@@ -1,4 +1,4 @@
-Running the Email Analytics is a two step process:
+#Running the Email Analytics is a two step process:
 1. Index creation/update step
 2. Index range search step
 
