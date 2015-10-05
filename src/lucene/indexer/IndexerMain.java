@@ -14,7 +14,6 @@ import org.apache.lucene.index.IndexWriterConfig.OpenMode;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -30,12 +29,11 @@ public class IndexerMain {
 	String files_to_index;
 	String indexPath;
 	
+	//Constructor which takes the input file path and directory of index creation
 	public IndexerMain(String files_to_index, String indexPath)
 	{
 		this.files_to_index = files_to_index;
 		this.indexPath = indexPath;
-		
-
 	}
 	
 	public static final String FIELD_PATH = "path";
@@ -57,7 +55,6 @@ public class IndexerMain {
     //boolean create = true;
     for(int i=0;i<args.length;i++) {
     	if ("-h".equals(args[i])) {
-    		
     		 System.out.println("Usage: " + usage);
     		 System.exit(1);
     	}
@@ -70,13 +67,11 @@ public class IndexerMain {
       } 
     }
 
-    
     if (input_file == null ) {
     	System.err.println("Enter the input CSV file and rerun the tool again\n");
     	System.err.println("Usage: " + usage);
       System.exit(1);
     }
-
    
 		// TODO Auto-generated method stub
 	//	String files_to_index = System.getenv("files_to_index");
@@ -93,14 +88,14 @@ public class IndexerMain {
 			files_to_index = "Extraction";
 		}
 		*/
+		//Creating a default directory as LuceneIndex in the current path if env is not specified.
 		files_to_index = "Extraction";
     	if(indexPath == NULL)
 			indexPath= "LuceneIndex";
 		
-		
+		//Preprocess the csv file 
 		SearchTransformation st = new SearchTransformation(files_to_index,input_file,indexPath);
 		st.run();
-		
 		IndexerMain ind = new IndexerMain(files_to_index,indexPath);
 		ind.createIndex(phrases);
 		File f = new File(files_to_index);
@@ -109,26 +104,21 @@ public class IndexerMain {
 		
 	}
 
-
 	public void createIndex(String phrases) throws IOException {
 		// FileInputStream fis;
 		String temp = "";
 		//@SuppressWarnings("deprecation")
 		int val = Integer.parseInt(phrases);
 		//Analyzer analyzer = new ShingleAnalyzerWrapper(new SnowballAnalyzer(Version.LUCENE_4_9, "English", CharArraySet.EMPTY_SET),val,val," ",false,false,null);
-		
+		//Using Lucene Analyzers based on the need	
 		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_4_9, CharArraySet.EMPTY_SET);
 		Analyzer analyzer1 = new ShingleAnalyzerWrapper(analyzer,val,val," ",false,false,null);
 		IndexWriterConfig config = new IndexWriterConfig(Version.LUCENE_4_9,analyzer1); //(Version.LUCENE_40,analyzer);
-
 		config.setOpenMode(OpenMode.CREATE_OR_APPEND);
 		Directory dir;
-
 		dir = FSDirectory.open(new File(indexPath));
 		IndexWriter indexWriter;
-
 		indexWriter = new IndexWriter(dir, config);
-
 		final File docDir = new File(files_to_index);
 		File[] files = docDir.listFiles();
 		for (File file : files) {
@@ -155,17 +145,14 @@ public class IndexerMain {
 					content = m.group(0).replaceAll("message:", "");
 					//content = m.group(0);
 					//System.out.println(content);
-
 				}
 				
 				if(m1.find()) {
 					content1 = (m1.group(0).replaceAll("Server Timestamp:",""));//.substring(1,3);
 					
 				}
-				
 				if(m2.find()) {
 					content2 = (m2.group(0).replaceAll("Key:",""));//.substring(1,3);
-					
 				}
 			}
 			//System.out.println(content1);
@@ -183,10 +170,9 @@ public class IndexerMain {
 		
 		indexWriter.commit();
 		indexWriter.close();
-	
 		
 	}
-	
+	//remove the directory
 	public boolean removeDirectory(File directory) {
 
 		  // System.out.println("removeDirectory " + directory);
@@ -223,7 +209,8 @@ public class IndexerMain {
 
 		  return directory.delete();
 		}
-
+	
+	//the below is not required
 	/*public void search(String searchString) throws Exception {
 
 		//System.out.println("Searching for '" + searchString + "'");
