@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Date;
-
 import au.com.bytecode.opencsv.CSVReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,25 +28,25 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.store.FSDirectory;
 
-
+//Class which reads the data from csv and preprocesses it
 public class SearchTransformation {
 	String files_to_index;
 	String input_csv;
 	String index_dir;
 	HashSet<String> Id = new HashSet<String>();
 
+	//Constructor
 	public SearchTransformation( String FILES_TO_INDEX_DIRECTORY, String INPUT_CSV_FILE, String INDEX_DIRECTORY)
 	{
 		this.files_to_index = FILES_TO_INDEX_DIRECTORY;
 		this.input_csv = INPUT_CSV_FILE;
 		this.index_dir = INDEX_DIRECTORY;
-
 	}
-
 
 	private static final String Message = null;
 	BufferedWriter OutFileWriter;
 	//StringBuilder sentence = new StringBuilder();
+	//custom made stop words. We can also use Lucene default stop words as well.I used this for performance reasons
 	public static final List<String> stopwords =Arrays.asList("a", "I","am","about","no","br", "above", "above", "across", "after", "afterwards", "again", "against", "all", "almost", 
 			"alone", "along", "already", "also","although","always","am","among", "amongst", "amoungst", "amount",  "an", "and","i","to", 
 			"another", "any","anyhow","anyone","anything","anyway", "anywhere", "are", "around", "as",  "at", "back","be","became", "dont",
@@ -79,17 +78,14 @@ public class SearchTransformation {
 			"discussion","tmus","diffrent.","layout","area.","thanks","thankyou","hello","bye","rise","fell","fall","psqft.","km","miles");
 	private static final String NULL = null;
 
-
+	//preprocess function
 	public void run() throws IOException {
 
 		boolean result = false;
 		try {
-
 			File fl = new File(files_to_index);
-
 			if (!fl.exists()) {
 				result = fl.mkdir();
-				
 				if(result)
 				{
 					System.out.println("Sucessfully created the directory");
@@ -104,40 +100,14 @@ public class SearchTransformation {
 			ex.printStackTrace();
 		}
 		
-	/*	File fl = new File(files_to_index);
-		if(fl.exists())
-		{
-			File[] files = fl.listFiles();
-			for (File file : files) {
-				
-				BufferedReader input = new BufferedReader(new FileReader(file));
-				String line = null;
-				while ((line  = input.readLine()) != null) {
-					String pattern2 = "(.*)CSNUtId(.*)";
-					Pattern r1 = Pattern.compile(pattern2);
-					Matcher m1 = r1.matcher(line);
-					if(m1.find())
-					{
-						//System.out.println(m1.group(0));
-						//System.out.println(m1.group(0).substring(0,46).replace("CSNUtId:", "").trim());
-						Id.add(m1.group(0).substring(0,46).replace("CSNUtId:", "").trim());
-					}
-				}
-				input.close();
-			}
-			
-		}
-*/
 		File f1 = new File(index_dir);
 		if(f1.exists() && f1.isDirectory())
 		{
 		IndexReader read = DirectoryReader.open(FSDirectory.open(new File(index_dir)));
 		int num = read.maxDoc();
-		
 		for ( int i = 0; i < num; i++)
 		{
 			Document d = read.document(i);
-			
 			Id.add(d.get("Key").toString());
 		}
 		read.close();
@@ -161,19 +131,19 @@ public class SearchTransformation {
 			while ((nextLine = reader.readNext()) != null) {
 				if(count == 0)
 				{count = count+1;}
-
+				//logic to create a key out of email id and server timestamp and check for duplication
 				else
 				{
 					String token = nextLine[1];
 					String name = null;
 					String time = null;
-					String pattern3 = "(.*)CSNUtId(.*)";
+					String pattern3 = "(.*)Email(.*)";
 					Pattern r3 = Pattern.compile(pattern3);
 					Matcher m3 = r3.matcher(token);
 					{
 						if(m3.find())
 						{
-							name =m3.group(0).substring(0,46).replace("CSNUtId:", "").trim();
+							name =m3.group(0).substring(0,46).replace("Email:", "").trim();
 						}
 					}
 					String pattern4 = "(.*)Server Timestamp(.*)";
@@ -191,7 +161,6 @@ public class SearchTransformation {
 					//System.out.println(token);
 					if(token != null)
 					{
-						
 						if(Id.isEmpty() || !Id.contains(key))
 						{	
 							//&& !Id.contains(key)
@@ -206,10 +175,7 @@ public class SearchTransformation {
 							content = m.group(0);
 							//System.out.println(content);
 						}
-
-
 						StringBuffer b = new StringBuffer(content.length());
-
 						for(String s :content.toLowerCase().split("\\b")){
 							if(!stopwords.contains(s)) 
 								b.append(s );
@@ -228,16 +194,7 @@ public class SearchTransformation {
 							//System.out.println("Server time is fine");
 						}
 						b.append("\n");
-					/*	String pattern2 = "(.*)CSNUtId(.*)";
-						Pattern r2 = Pattern.compile(pattern2);
-						Matcher m2 = r2.matcher(token);
-						{
-							if(m2.find())
-							{
-								b.append(m2.group(0));
-							}
-						}
-				*/
+			
 						b.append("Key:"+key);
 						//System.out.println(b.toString());
 						if (b != null)
@@ -249,7 +206,6 @@ public class SearchTransformation {
 							count = count +1;
 						}
 					}
-						
 						
 					}
 				}
@@ -319,6 +275,4 @@ public class SearchTransformation {
 			ex.printStackTrace();
 		}
 	}
-
-
 }
