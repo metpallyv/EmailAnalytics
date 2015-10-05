@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="EclipseModuleManager">
+    <libelement value="lib/lucene-analyzers-common-4.9.0.jar" />
+    <libelement value="lib/lucene-misc-4.9.0.jar" />
+    <libelement value="lib/lucene-core-4.9.0.jar" />
+    <libelement value="lib/commons-lang3-3.3.2.jar" />
+    <libelement value="lib/lucene-queryparser-4.9.0.jar" />
+    <libelement value="lib/opencsv-3.5.jar" />
+    <libelement value="lib/lucene-facet-4.9.0.jar" />
+    <libelement value="lib/lucene-memory-4.9.0.jar" />
+    <libelement value="lib/solr-solrj-4.9.0.jar" />
+    <src_description expected_position="0">
+      <src_folder value="file://$MODULE_DIR$/src" expected_position="0" />
+    </src_description>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/bin" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+    </content>
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="module-library">
+      <library name="lucene-analyzers-common-4.9.0.jar">
+        <CLASSES>
+          <root url="lib/lucene-analyzers-common-4.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lucene-misc-4.9.0.jar">
+        <CLASSES>
+          <root url="lib/lucene-misc-4.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lucene-core-4.9.0.jar">
+        <CLASSES>
+          <root url="lib/lucene-core-4.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="commons-lang3-3.3.2.jar">
+        <CLASSES>
+          <root url="lib/commons-lang3-3.3.2.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lucene-queryparser-4.9.0.jar">
+        <CLASSES>
+          <root url="lib/lucene-queryparser-4.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="opencsv-3.0.jar">
+        <CLASSES>
+          <root url="lib/opencsv-3.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lucene-facet-4.9.0.jar">
+        <CLASSES>
+          <root url="lib/lucene-facet-4.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="lucene-memory-4.9.0.jar">
+        <CLASSES>
+          <root url="lib/lucene-memory-4.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="solr-solrj-4.9.0.jar">
+        <CLASSES>
+          <root url="lib/solr-solrj-4.9.0.jar" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="lib" level="project" />
+  </component>
+</module>
