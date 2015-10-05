@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.shingle.ShingleAnalyzerWrapper;
 import org.apache.lucene.analysis.snowball.SnowballAnalyzer;
@@ -91,7 +90,6 @@ public class JavaSearcher {
 	 */
 	@SuppressWarnings("deprecation")
 	public static void main(String[] args) throws Exception {
-
 
 		String usage = "java -cp Feedback_term_report.jar lucene.indexer.JavaSearcher"
 				+ " [-h help] [-index INDEX_PATH] [-num_phrases number] [-minTermCount number] [-grouping month/year] [-startDate yymmdd] [-endDate yymmdd] [-output_file OUTPUT_CSV_FILE]\n\n"
@@ -177,7 +175,6 @@ public class JavaSearcher {
 		{
 			num = 50;//Returning the top 50 phrases from the index by default
 		}
-
 
 		if(grouping != null && grouping.trim().equals("year"))
 		{
