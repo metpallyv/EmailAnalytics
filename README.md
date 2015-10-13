@@ -38,7 +38,19 @@ To perform sentiment analysis on the emails, we just pass this corpus as an inpu
 
 #Classify emails into folders
 
-To classify emails into folders like Sports,Entertainment, Economics, Spam based on Email contents, refer to Logistic Regression project . Future work would be LDA implementation(will implement soon)
+Steps to  classify emails into folders like Sports,Entertainment, Economics,etc. 
+
+1. I run Latent Dirichlet Allocation Model(LDA) implementation from my TwitterAnalytics project and discover the topics and the top 50 keywords from these topics
+
+2. Once i get the topics and frequent keyowrds, I label the topics and its keyowrds into Sports,Entertainment,Economics,etc manually using my topic knowledge.
+
+3. I then use these topics as classes and keywords as training features for Multinomial NaiveBased Classfier or Logisitic Regression or SVM Classifier 
+
+4. Train the model and then when a test email comes in, I predict the email into the corresponding folder(class) based on the prediction from my model
+
+#Email Spam Classification 
+
+refer to Logistic Regression project or Decision Trees Project for the Spam Classification problem
 
 
 
