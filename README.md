@@ -1,4 +1,4 @@
-# EmailAnalytics
+# EmailAnalytics using Apache Lucene
 The goal of this project is to build a EmailAnalytics system using Apache Lucene
 
 #EmailAnalytics tool does the following Analytics on the email:
